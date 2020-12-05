@@ -1070,7 +1070,6 @@ int main()
         tanosGame->enter();
         return true; });
     V1->setOnEnterCallback([&](ScenePtr)->bool {
-        laser->hide();
         IX = 0, IY = 0;
         TX = 1000, TY = 0;
         Tanos->locate(tanosGS, TX, TY);
@@ -1097,7 +1096,6 @@ int main()
         return true;
         });
     F1->setOnEnterCallback([&](ScenePtr)->bool {
-        laser->hide();
         IX = 0, IY = 0;
         TX = 1000, TY = 0;
         Tanos->locate(tanosGS, TX, TY);
