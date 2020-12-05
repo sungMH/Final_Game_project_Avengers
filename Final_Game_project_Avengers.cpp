@@ -6,13 +6,16 @@
 using namespace bangtal;
 using namespace std;
 
-
-
-
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
-bool stones[6] = {false,false, false, false, false, false};
+//bool stones[6] = {false,false, false, false, false, false};
+bool stones[6] = { true,true, true, true, true, true };
 
 
+bool have5Stone(bool stones[6]) {
+    int nu = 0;
+    for (int i = 0; i < 5; i++) { nu++; }
+    return nu == 5;
+}
 
 ObjectPtr makeNextButton(ScenePtr &nowScene, ScenePtr &nextScene, int x ,int y, bool isNext =true,
     bool defaultFilename =true, const char * inputFilename = "\0") {
@@ -978,6 +981,304 @@ int main()
     auto nFo = makeNextButton(nF, gameMap, 800, 50, true, false, "images/메인으로.png");
     auto dFo = makeNextButton(dF, gameMap, 800, 50, true, false, "images/메인으로.png");
 
+    //6. 보스 타노스
+
+    auto tanosGame = Scene::create("타노스", "images/타노스스테이지.png");
+    auto tanosM1 = Scene::create("타노스", "images/타노스등장1.png");
+    auto tanosM2 = Scene::create("타노스", "images/타노스설명.png");
+    auto tanosGS = Scene::create("최종보스 타노스", "images/타노스게임1.png");
+
+    int TANOS_LIFE = 222;
+    int IRON_LIFE = 50;
+
+    bool qb = true, wb = true, eb = true, rb = true, tb = true;
+    auto QB = Object::create("images/Q.png", tanosGS, 30, 650,false);
+    auto WB = Object::create("images/W.png", tanosGS, 110, 650, false);
+    auto EB = Object::create("images/E.png", tanosGS, 180, 650, false);
+    auto RB = Object::create("images/R.png", tanosGS, 250, 650, false);
+    auto TB = Object::create("images/T.png", tanosGS, 320, 650, false);
+    auto QSKILL = Scene::create("스킬!", "images/Qskill.png");
+    auto WSKILL = Scene::create("스킬!", "images/Wskill.png");
+    auto ESKILL = Scene::create("스킬!", "images/Eskill.png");
+    auto RSKILL = Scene::create("스킬!", "images/Rskill.png");
+    auto TSKILL = Scene::create("스킬!", "images/Tskill.png");
+
+    tanosGame->setOnEnterCallback([&](ScenePtr)->bool {
+        showMessage("타노스 등장!");
+        return true; });
+    
+    auto nextTX0 = makeNextButton(tanosGame, tanosM1, 1000, 10);
+    auto nextTX1 = makeNextButton(tanosM1, tanosM2, 1000, 10);
+    auto prevTX1 = makeNextButton(tanosM1, tanosGame, 900, 10, false);
+    auto nextTX2 = makeNextButton(tanosM2, tanosGS, 1000, 10);
+    auto prevTX2 = makeNextButton(tanosM2, tanosM1, 900, 10, false);
+
+    auto Tanos = Object::create("images/타노스스탠딩.png", tanosGS, 1000, 0);
+    auto ironM = Object::create("images/아이언맨.png", tanosGS, 0, 0);
+
+    bool laserS = false, skillS = false, TSkill =false;
+    float laserTime = 0.25f, laserSet = 1.5f, skillTimer =0.25f, SKILLT = 0.75f, TSkillTime = 2.0f;
+    auto laserTimer = Timer::create(laserTime);
+    auto laserSetTimer = Timer::create(laserSet);
+    auto skillTimer1 = Timer::create(skillTimer);
+    auto SKILLTtimer = Timer::create(SKILLT);
+    auto LS = Object::create("images/레이져빔아이콘.png", tanosGS, 400, 650,false);
+    auto laser = Object::create("images/레이져빔.png", tanosGS, 0, 0, false);
+    int IX = 0, IY = 0;
+    int TX = 1000, TY = 0;
+
+    SKILLTtimer->setOnTimerCallback([&](TimerPtr)->bool {
+        Tanos->setImage("images/타노스스탠딩.png");
+        Tanos->locate(tanosGS, TX, TY);
+        tanosGS->enter();
+        SKILLTtimer->set(SKILLT);
+        SKILLTtimer->stop();
+        return true; });
+
+    QB->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
+        if (skillS && qb){
+            QSKILL->enter();
+            TANOS_LIFE -= 40;
+            qb = false;
+            QB->hide();
+            skillTimer1->set(skillTimer);
+            skillTimer1->start();
+            SKILLTtimer->start();
+            Tanos->setImage("images/타노스데미지.png");
+            Tanos->locate(tanosGS, 500, 100);
+        }
+        //$$타노스 콜백 멈추기
+        //$$타노스 라이프 표시
+        return true; });
+    EB->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
+        if (skillS && eb) {
+            ESKILL->enter();
+            TANOS_LIFE -= 40;
+            eb = false;
+            EB->hide();
+            skillTimer1->set(skillTimer);
+            skillTimer1->start();
+            SKILLTtimer->start();
+            Tanos->setImage("images/타노스데미지.png");
+            Tanos->locate(tanosGS, 500, 100);
+        }
+        //$$타노스 콜백 멈추기
+        return true; });
+    WB->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
+        if (skillS && wb) {
+            WSKILL->enter();
+            TANOS_LIFE -= 40;
+            wb = false;
+            WB->hide();
+            skillTimer1->set(skillTimer);
+            skillTimer1->start();
+            SKILLTtimer->start();
+            Tanos->setImage("images/타노스데미지.png");
+            Tanos->locate(tanosGS, 500, 100);
+        }
+        //$$타노스 콜백 멈추기
+        return true; });
+    RB->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
+        if (skillS && rb) {
+            RSKILL->enter();
+            TANOS_LIFE -= 40;
+            rb = false;
+            RB->hide();
+            skillTimer1->set(skillTimer);
+            skillTimer1->start();
+            SKILLTtimer->start();
+            Tanos->setImage("images/타노스데미지.png");
+            Tanos->locate(tanosGS, 500, 100);
+        }
+        //$$타노스 콜백 멈추기
+        return true; });
+    TB->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
+        if (skillS && tb) {
+            TSKILL->enter();
+            TANOS_LIFE -= 40;
+            tb = false;
+            TB->hide();
+            skillTimer1->set(skillTimer);
+            skillTimer1->start();
+            SKILLTtimer->start();
+            Tanos->setImage("images/타노스데미지.png");
+            Tanos->locate(tanosGS, 500, 100);
+        }
+        //$$타노스 콜백 멈추기
+        return true; });
+
+
+    skillTimer1->setOnTimerCallback([&](TimerPtr)->bool {
+        skillS = true;
+        if (qb) { QB->show(); }
+        if (wb) { WB->show(); }
+        if (eb) { EB->show(); }
+        if (rb) { RB->show(); }
+        if (tb) { TB->show(); }
+        skillTimer1->set(laserSet); skillTimer1->start();
+        return true; });
+
+
+    laserSetTimer->setOnTimerCallback([&](TimerPtr)->bool {
+        laserS = true;
+        LS->show();
+        laserSetTimer->stop();
+        laserSetTimer->set(laserSet);
+        return true; });
+
+    laserTimer->setOnTimerCallback([&](TimerPtr)->bool {
+        laser->hide();
+        laserTimer->stop();
+        laserTimer->set(laserTime);
+
+        return true; });
+
+    int IDXYGround[4][2] = { {-20,0},{20,0},{0,100},{0,-100}};
+    int IDXY[4][2];
+    int IDXYFlying[4][2] = { {-60,0},{60,0},{0,100},{0,-100} };
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 2; j++) {
+            IDXY[i][j] = IDXYGround[i][j];
+        }
+    }
+    int nowIndex =1;
+    tanosGS->setOnKeyboardCallback([&](ScenePtr s, int k, int p)->bool {
+        if (IY == 0) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 2; j++) {
+                    IDXY[i][j] = IDXYGround[i][j]; 
+                }
+            }     
+        }
+        else {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 2; j++) {
+                    IDXY[i][j] = IDXYFlying[i][j];
+                }
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            cout << k <<"  " << IX + IDXY[i][0] <<"  "<< IY + IDXY[i][0]<<endl;
+            if (k - 82 == i &&(IX+ IDXY[i][0]>=0)&& (IX + IDXY[i][0] <= 1030)&&(IY + IDXY[i][1]>=0) && (IY + IDXY[i][1] <= 300) ){
+                nowIndex = i;
+                IX += IDXY[i][0];
+                IY += IDXY[i][1];
+                if (IY > 0) {
+                    if (IDXY[i][0] < 0) {
+                        ironM->setImage("images/아이언맨공중폼1.png");
+                    }
+                    else {
+                        ironM->setImage("images/아이언맨공중폼.png");
+                    }
+                }
+                else {
+                    if (IDXY[i][0] < 0) {
+                        ironM->setImage("images/아이언맨1.png");
+                    }
+                    else {
+                        ironM->setImage("images/아이언맨.png");
+                    }
+                
+                
+                }
+                ironM->locate(tanosGS, IX, IY);
+            }
+        }
+        if (k == 75 && laserS) {
+            
+            if (IDXY[nowIndex][0] < 0) {
+                ironM->setImage("images/아이언맨레이져빔1.png");
+                laser->setImage("images/레이져빔.png");
+                laser->locate(tanosGS,-1280+ IX, IY + 55);
+            }
+            else {
+                ironM->setImage("images/아이언맨레이져빔.png");
+                laser->setImage("images/레이져빔1.png");
+                laser->locate(tanosGS, IX + 250, IY + 55);
+            }
+            laser->show();
+            laserTimer->start();
+            laserSetTimer->start();
+            laserS = false;
+            LS->hide();
+            //$$레이져빔 발사구현
+        
+        }
+        if (k == 17) {
+            if (skillS && qb) {
+                QSKILL->enter();
+                TANOS_LIFE -= 40;
+                qb = false;
+                QB->hide();
+                skillTimer1->set(skillTimer);
+                skillTimer1->start();
+                SKILLTtimer->start();
+                Tanos->setImage("images/타노스데미지.png");
+                Tanos->locate(QSKILL, 350, 100);
+            }
+        }
+        else if (k == 23) {
+            if (skillS && wb) {
+                WSKILL->enter();
+                TANOS_LIFE -= 40;
+                wb = false;
+                WB->hide();
+                skillTimer1->set(skillTimer);
+                skillTimer1->start();
+                SKILLTtimer->start();
+                Tanos->setImage("images/타노스데미지.png");
+                Tanos->locate(WSKILL, 350, 100);
+            }
+        }
+        else if (k == 5) {
+            if (skillS && eb) {
+                ESKILL->enter();
+                TANOS_LIFE -= 40;
+                eb = false;
+                EB->hide();
+                skillTimer1->set(skillTimer);
+                skillTimer1->start();
+                SKILLTtimer->start();
+                Tanos->setImage("images/타노스데미지.png");
+                Tanos->locate(ESKILL, 350, 100);
+            }
+        }
+        else if (k == 18) {
+            if (skillS && rb) {
+                RSKILL->enter();
+                TANOS_LIFE -= 40;
+                rb = false;
+                RB->hide();
+                skillTimer1->set(skillTimer);
+                skillTimer1->start();
+                SKILLTtimer->start();
+                Tanos->setImage("images/타노스데미지.png");
+                Tanos->locate(RSKILL, 350, 100);
+            }
+        }
+        else if (k == 20) {
+            if (skillS && tb) {
+                TSKILL->enter();
+                TANOS_LIFE -= 40;
+                tb = false;
+                TB->hide();
+                skillTimer1->set(skillTimer);
+                skillTimer1->start();
+                SKILLTtimer->start();
+                Tanos->setImage("images/타노스데미지.png");
+                Tanos->locate(TSKILL, 350, 100);
+            }
+        }
+
+
+        return true;
+        });
+
+    tanosGS->setOnEnterCallback([&](ScenePtr)->bool {
+        laserSetTimer->start();
+        skillTimer1->start();
+        return true; });
+
 
     //$$타이머 다 멈춤
     gameMap->setOnEnterCallback([&](ScenePtr s)->bool {
@@ -1005,6 +1306,10 @@ int main()
         gameTimer2->stop();
         magicTimer->stop();
         DATimer->stop();
+
+        if (have5Stone(stones)) {
+            tanosGame->enter();
+        }
 
         return true; });
 
