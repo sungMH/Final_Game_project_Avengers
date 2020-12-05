@@ -13,7 +13,12 @@ bool stones[6] = { true,true, true, true, true, true };
 
 bool have5Stone(bool stones[6]) {
     int nu = 0;
-    for (int i = 0; i < 5; i++) { nu++; }
+    for (int i = 0; i < 5; i++) { 
+        if(stones[i]){ 
+            nu++; 
+        }
+    }
+    cout << nu << endl;
     return nu == 5;
 }
 
@@ -199,7 +204,6 @@ int main()
 
     //게임메뉴얼
     auto xandarMenual1 = Scene::create("잔다르설명1", "images/잔다르메뉴얼.png");//메뉴얼 만들기
-  //  auto xandarMenual2 = Scene::create("잔다르설명2", "images/xandarMenual2.png");//메뉴얼 만들기
     auto xandarGameScene = Scene::create("잔다르행성", "images/xandarGameScene.png");
     auto xandarGameSceneV = Scene::create("잔다르행성", "images/잔다르승리.png");
     xandarGameSceneV->setOnEnterCallback([&](ScenePtr p)->bool {
@@ -210,8 +214,6 @@ int main()
     auto xandar = makeNextButton(gameMap, xandarMenual1, 100, 100,true,false, "images/xandar.png");
     auto nextBX1 = makeNextButton(xandarMenual1, xandarGameScene, 1000, 10);
     auto prevBX1 = makeNextButton(xandarMenual1, gameMap, 900, 10, false);
-    //auto nextBX2 = makeNextButton(xandarMenual2, xandarGameScene, 1000, 10);
-    //auto prevBX2 = makeNextButton(xandarMenual2, xandarMenual1, 900, 10, false);
 
     auto powerS = Object::create("images/파워스톤.png", gameMap, 100, 100, false);
     powerS->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
@@ -334,7 +336,6 @@ int main()
                     stones[0] = true;
                     xandar->hide();
                     powerS->show();
-                    stones[0] = true;
                     xandarGameSceneV->enter();
                 }
                 nowX += moveStep[i][0]; nowY += moveStep[i][1];
@@ -376,15 +377,12 @@ int main()
     //################2.아스가르드 행성
     //게임메뉴얼
     auto asgardMenual1 = Scene::create("아스가르드설명1", "images/아스가르드메뉴얼.png");//메뉴얼 만들기
-    //auto asgardMenual2 = Scene::create("아스가르드설명2", "images/asgardMenual2.png");//메뉴얼 만들기
     auto asgardGameScene = Scene::create("아스가르드행성", "images/asgardGameScene.png");
 
     //다음 이전 장 가는 버튼
     auto asgard = makeNextButton(gameMap, asgardMenual1, 300, 420, true,false, "images/asgard.png");
     auto nextBA1 = makeNextButton(asgardMenual1, asgardGameScene, 1000, 10);
     auto prevBA1 = makeNextButton(asgardMenual1, gameMap, 900, 10, false);
-    //auto nextBA2 = makeNextButton(asgardMenual2, asgardGameScene, 1000, 10);
-    //auto prevBA2 = makeNextButton(asgardMenual2, asgardMenual1, 900, 10, false);
 
     auto spaceS = Object::create("images/스페이스스톤.png", gameMap, 300, 420, false);
     spaceS->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
@@ -589,8 +587,6 @@ int main()
     auto earth = makeNextButton(gameMap, earthMenual1, 700, 120, true,false,"images/earth.png");
     auto nextBE1 = makeNextButton(earthMenual1, earthGameScene, 1000, 10);
     auto prevBE1 = makeNextButton(earthMenual1, gameMap, 900, 10, false);
-   // auto nextBE2 = makeNextButton(earthMenual2, earthGameScene, 1000, 10);
-    //auto prevBE2 = makeNextButton(earthMenual2, earthMenual1, 900, 10, false);
     bool solReady = false;
     int okSeqenece = 0;//순서 맞춘 갯수
     
@@ -724,7 +720,6 @@ int main()
     //################4.노웨어 행성
     //게임메뉴얼
     auto nowhereMenual1 = Scene::create("노웨어설명1", "images/노웨어메뉴얼.png");//메뉴얼 만들기
-    //auto nowhereMenual2 = Scene::create("노웨어설명2", "images/nowhereMenual2.png");//메뉴얼 만들기
     auto nowhereGameScene = Scene::create("노웨어행성", "images/노웨어게임1.png");
     auto nowhereGameSceneV = Scene::create("노웨어행성", "images/노웨어승리.png");
     nowhereGameSceneV->setOnEnterCallback([&](ScenePtr p)->bool {
@@ -735,11 +730,7 @@ int main()
     auto nowhere = makeNextButton(gameMap, nowhereMenual1, 730, 420, true,false,"images/nowhere.png");
     auto nextBN1 = makeNextButton(nowhereMenual1, nowhereGameScene, 1000, 10);
     auto prevBN1 = makeNextButton(nowhereMenual1, gameMap, 900, 10, false);
-    //auto nextBN2 = makeNextButton(nowhereMenual2, nowhereGameScene, 1000, 10);
-    //auto prevBN2 = makeNextButton(nowhereMenual2, nowhereMenual1, 900, 10, false);
 
-
-    
     //게임 구현
     
     auto realityS = Object::create("images/리얼리티스톤.png", gameMap, 730, 420, false);
@@ -842,7 +833,6 @@ int main()
     //################5.도르마무
     //게임메뉴얼
     auto darkMenual1 = Scene::create("다크디멘젼설명1", "images/도르마무메뉴얼.png");//메뉴얼 만들기
-    //auto darkMenual2 = Scene::create("다크디멘젼설명2", "images/darkMenual2.png");//메뉴얼 만들기
     auto darkGameScene = Scene::create("다크디멘젼", "images/도르마무게임.png");
     auto darkGameSceneV = Scene::create("다크디멘젼", "images/도르마무승리.png");
 
@@ -850,12 +840,9 @@ int main()
     auto wakanda = makeNextButton(gameMap, darkMenual1 , 950, 220, true,false,"images/도르마무.png");
     auto nextBW1 = makeNextButton(darkMenual1, darkGameScene, 1000, 10);
     auto prevBW1 = makeNextButton(darkMenual1, gameMap, 900, 10, false);
-    //auto nextBW2 = makeNextButton(darkMenual2, darkGameScene, 1000, 10);
-   // auto prevBW2 = makeNextButton(darkMenual2, darkMenual1, 900, 10, false);
 
     //게임 구현
     auto mindS = Object::create("images/마인드스톤.png", gameMap, 950, 220, false);
-
     
     auto myC = Object::create("images/닥터스트레인지.png", darkGameScene, 0, 200);
     int magicalXP, magicalXidx;
@@ -985,10 +972,20 @@ int main()
 
     auto tanosGame = Scene::create("타노스", "images/타노스스테이지.png");
     auto tanosM1 = Scene::create("타노스", "images/타노스등장1.png");
-    auto tanosM2 = Scene::create("타노스", "images/타노스설명.png");
+    auto tanosM2 = Scene::create("타노스", "images/타노스설명1.png");
+    auto tanosM3 = Scene::create("타노스", "images/타노스설명2.png");
+    auto tanosM4 = Scene::create("타노스", "images/타노스설명3.png");
+    auto tanosM5 = Scene::create("타노스", "images/타노스설명4.png");
     auto tanosGS = Scene::create("최종보스 타노스", "images/타노스게임1.png");
-    int TANOS_LIFE = 1;
-    int IRON_LIFE = 1;
+    int TANOS_LIFE = 222;
+    int IRON_LIFE = 999;
+
+    auto nextTX4 = makeNextButton(tanosM3, tanosM4, 1000, 10);
+    auto prevTX4 = makeNextButton(tanosM3, tanosM2, 900, 10, false);
+    auto nextTX5 = makeNextButton(tanosM4, tanosM5, 1000, 10);
+    auto prevTX5 = makeNextButton(tanosM4, tanosM3, 900, 10, false);
+    auto nextTX6 = makeNextButton(tanosM5, tanosGS, 1000, 10);
+    auto prevTX6 = makeNextButton(tanosM5, tanosM4, 900, 10, false);
 
     auto ILO = Object::create("images/아이언맨목숨.png", tanosGS,500,600);
     auto TNO = Object::create("images/타노스목숨.png", tanosGS,820,600);
@@ -1020,7 +1017,7 @@ int main()
     auto nextTX0 = makeNextButton(tanosGame, tanosM1, 1000, 10);
     auto nextTX1 = makeNextButton(tanosM1, tanosM2, 1000, 10);
     auto prevTX1 = makeNextButton(tanosM1, tanosGame, 900, 10, false);
-    auto nextTX2 = makeNextButton(tanosM2, tanosGS, 1000, 10);
+    auto nextTX2 = makeNextButton(tanosM2, tanosM3, 1000, 10);
     auto prevTX2 = makeNextButton(tanosM2, tanosM1, 900, 10, false);
 
     auto Tanos = Object::create("images/타노스스탠딩.png", tanosGS, 1000, 0);
@@ -1040,7 +1037,7 @@ int main()
 
     bool laserS = false, skillS = false, TSkill =false, nowTanosTime = false;
     float TanosWalk = 0.05f, TanosAttack = 0.1f;
-    float laserTime = 0.25f, laserSet = 1.5f, skillTimer =0.2f, SKILLT = 0.75f, TSkillTime = 10.0f, TSutill = 3.0f, meG = 0.25f, meM =0.00001f;
+    float laserTime = 0.25f, laserSet = 1.5f, skillTimer =7.0f, SKILLT = 0.75f, TSkillTime = 5.0f, TSutill = 3.0f, meG = 0.25f, meM =0.00001f;
     auto TanosWalkTimer = Timer::create(TanosWalk);
     auto TanosAttackTimer = Timer::create(TanosAttack);
     auto laserTimer = Timer::create(laserTime);
@@ -1070,6 +1067,9 @@ int main()
         tanosGame->enter();
         return true; });
     V1->setOnEnterCallback([&](ScenePtr)->bool {
+        for (int i = 0; i < 6; i++) {
+            stones[i] = false;
+        }
         laser->hide();
         IX = 0, IY = 0;
         TX = 1000, TY = 0;
@@ -1097,6 +1097,9 @@ int main()
         return true;
         });
     F1->setOnEnterCallback([&](ScenePtr)->bool {
+        for (int i = 0; i < 6; i++) {
+            stones[i] = false;
+        }
         laser->hide();
         IX = 0, IY = 0;
         TX = 1000, TY = 0;
@@ -1251,7 +1254,7 @@ int main()
         if (eb) { EB->show(); }
         if (rb) { RB->show(); }
         if (tb) { TB->show(); }
-        skillTimer1->set(laserSet); skillTimer1->start();
+        skillTimer1->set(skillTimer); skillTimer1->start();
         return true; });
 
 
@@ -1338,7 +1341,9 @@ int main()
                 laserSetTimer->start();
                 laserS = false;
                 LS->hide();
-                TANOS_LIFE -= 1;
+                if ((TX >= IX && IDXY[nowIndex][0] >= 0)|| (TX < IX && IDXY[nowIndex][0] < 0)){
+                    TANOS_LIFE -= 1;
+                }
                 if (TANOS_LIFE <= 0) {
                     V1->enter();
                 }
@@ -1353,6 +1358,12 @@ int main()
             }
             if (k == 17) {
                 if (skillS && qb) {
+                    TB->hide();
+                    RB->hide();
+                    EB->hide();
+                    WB->hide();
+                    QB->hide();
+                    skillS = false;
                     TSkillTimer->set(TSkillTime);
                     TSutillTimer->set(TSutill);
                     TSkillTimer->stop();
@@ -1383,6 +1394,12 @@ int main()
             }
             else if (k == 23) {
                 if (skillS && wb) {
+                    TB->hide();
+                    RB->hide();
+                    EB->hide();
+                    WB->hide();
+                    QB->hide();
+                    skillS = false;
                     TSkillTimer->set(TSkillTime);
                     TSutillTimer->set(TSutill);
                     TSkillTimer->stop();
@@ -1413,6 +1430,12 @@ int main()
             }
             else if (k == 5) {
                 if (skillS && eb) {
+                    TB->hide();
+                    RB->hide();
+                    EB->hide();
+                    WB->hide();
+                    QB->hide();
+                    skillS = false;
                     TSkillTimer->set(TSkillTime);
                     TSutillTimer->set(TSutill);
                     TSkillTimer->stop();
@@ -1443,6 +1466,12 @@ int main()
             }
             else if (k == 18) {
                 if (skillS && rb) {
+                    TB->hide();
+                    RB->hide();
+                    EB->hide();
+                    WB->hide();
+                    QB->hide();
+                    skillS = false;
                     TSkillTimer->set(TSkillTime);
                     TSutillTimer->set(TSutill);
                     TSkillTimer->stop();
@@ -1473,6 +1502,12 @@ int main()
             }
             else if (k == 20) {
                 if (skillS && tb) {
+                    TB->hide();
+                    RB->hide();
+                    EB->hide();
+                    WB->hide();
+                    QB->hide();
+                    skillS = false;
                     TSkillTimer->set(TSkillTime);
                     TSutillTimer->set(TSutill);
                     TSkillTimer->stop();
@@ -1515,45 +1550,21 @@ int main()
         return true; });
 
 
-    //$$타이머 다 멈춤
     gameMap->setOnEnterCallback([&](ScenePtr s)->bool {
-        //1잔다르 타이머들
-        xandarGenerateTimer->stop();
-        xandarMoveTimer->stop();
-        moveFireTimer->stop();
-        setFireTimer->stop();
-        
-        //2아스가르드 타이머들
-        HellaTimer->stop();
-        AttackTimer->stop();
-
-        //3뉴욕지구 타이머들
-        acientOneTimer->stop();
-        solTimer->stop();
-
-        //4노웨어 타이머들
-        gameTimer1->stop();
-        playerTimer->stop();
-        playerGTimer->stop();
-
-        //5도르마무 타이머들
-        fireTimer->stop();
-        gameTimer2->stop();
-        magicTimer->stop();
-        DATimer->stop();
-
         if (have5Stone(stones)) {
             tanosGame->enter();
         }
 
         return true; });
 
-    //$$모든 초기화 할것 여기에 적기
     startScene->setOnEnterCallback([&](ScenePtr s)->bool {
-        for (int i = 0; i < 5; i++) {
-            stones[i] = false;
-        }
+    xandar->setImage("images/xandar.png"); xandar->show();
+    asgard->setImage("images/asgard.png"); asgard->show();
+    earth->setImage("images/earth.png"); earth->show();
+    nowhere->setImage("images/nowhere.png"); nowhere->show();
+    wakanda->setImage("images/도르마무.png"); wakanda->show();
+    mindS->hide(); realityS->hide(); timeS->hide(); spaceS->hide(); powerS->hide();
+    mindS->drop(); realityS->drop(); timeS->drop(); spaceS->drop(); powerS->drop();
         return true; });
-
     startGame(startScene);
 }
