@@ -7,8 +7,8 @@ using namespace bangtal;
 using namespace std;
 
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
-//bool stones[6] = {false,false, false, false, false, false};
-bool stones[6] = { true,true, true, true, true, true };
+bool stones[6] = {false,false, false, false, false, false};
+//bool stones[6] = { true,true, true, true, true, true };
 
 
 bool have5Stone(bool stones[6]) {
@@ -168,6 +168,7 @@ int main()
 {
     //######################### 시작 화면 ############################################
     auto startScene = Scene::create("어벤져스", "images/startScene.png");
+    SoundPtr sound = Sound::create("images/어벤져스.mp3");
 
     srand((unsigned)time(NULL));
 
@@ -356,6 +357,7 @@ int main()
 
     //게임화면 들어오면 타이머 시작하는 콜백 붙이기
     xandarGameScene->setOnEnterCallback([&](ScenePtr s)->bool {
+        sound->stop();
         nowX = 0; nowY = 240;
         my->locate(xandarGameScene, 0, 240);
         fireReady = false;
@@ -511,6 +513,7 @@ int main()
 
     //스페이스 바 누르면 게이지 채워짐(99개)
     asgardGameScene->setOnKeyboardCallback([&](ScenePtr s ,int key, bool pressed)->bool {
+        sound->stop();
         if (spaceStackNum >= 99) {
             showMessage("불의 거인 수르트 소환!, 우측 상단 스킬을 사용하시면 승리합니다.");
             LokiAndThor->locate(asgardGameScene,0,0);
@@ -697,6 +700,7 @@ int main()
         return true; });
 
     earthGameScene->setOnEnterCallback([&](ScenePtr s)->bool {
+        sound->stop();
         {
             solReady = false;
             okSeqenece = 0;
@@ -786,6 +790,7 @@ int main()
         return true; });
 
     nowhereGameScene->setOnEnterCallback([&](ScenePtr s)->bool {
+        sound->stop();
         gameKey.allRevmove();
         sc10->setImage("images/0.png"); sc1->setImage("images/0.png");
         correctPress = 0;
@@ -948,6 +953,7 @@ int main()
         return true; });
 
     darkGameScene->setOnEnterCallback([&](ScenePtr s)->bool {
+        sound->stop();
         nowMyX = 0; nowMyY = 200;
         myC->locate(darkGameScene, 0, 200);
         fireTimer->set(fireTime);
@@ -980,6 +986,7 @@ int main()
     int TANOS_LIFE = 222;
     int IRON_LIFE = 999;
 
+    Sound soundT = Sound::create("images/타노스.mp3");
     auto nextTX4 = makeNextButton(tanosM3, tanosM4, 1000, 10);
     auto prevTX4 = makeNextButton(tanosM3, tanosM2, 900, 10, false);
     auto nextTX5 = makeNextButton(tanosM4, tanosM5, 1000, 10);
@@ -1009,11 +1016,7 @@ int main()
     auto ESKILL = Scene::create("스킬!", "images/Eskill.png");
     auto RSKILL = Scene::create("스킬!", "images/Rskill.png");
     auto TSKILL = Scene::create("스킬!", "images/Tskill.png");
-
-    tanosGame->setOnEnterCallback([&](ScenePtr)->bool {
-        showMessage("타노스 등장!");
-        return true; });
-    
+   
     auto nextTX0 = makeNextButton(tanosGame, tanosM1, 1000, 10);
     auto nextTX1 = makeNextButton(tanosM1, tanosM2, 1000, 10);
     auto prevTX1 = makeNextButton(tanosM1, tanosGame, 900, 10, false);
@@ -1024,7 +1027,6 @@ int main()
     auto ironM = Object::create("images/아이언맨.png", tanosGS, 0, 0);
     auto TanosSkill = tanosGS; 
 
-    
     auto V1 = Scene::create("6개의 인피니티 스톤","images/승리1.png");
     auto V2 = Scene::create("핑거스냅!", "images/승리2.png");
     auto VG1 = Object::create("images/인피니티건틀렛.png", V1, 1000, 0);
@@ -1067,6 +1069,7 @@ int main()
         tanosGame->enter();
         return true; });
     V1->setOnEnterCallback([&](ScenePtr)->bool {
+        soundT->stop();
         for (int i = 0; i < 6; i++) {
             stones[i] = false;
         }
@@ -1097,6 +1100,7 @@ int main()
         return true;
         });
     F1->setOnEnterCallback([&](ScenePtr)->bool {
+        soundT->stop();
         for (int i = 0; i < 6; i++) {
             stones[i] = false;
         }
@@ -1543,14 +1547,18 @@ int main()
         });
 
     tanosGS->setOnEnterCallback([&](ScenePtr)->bool {
+        soundT->play(true);
         TanosWalkTimer->start();
         TSkillTimer->start();
         laserSetTimer->start();
         skillTimer1->start();
         return true; });
 
-
+    tanosGame->setOnEnterCallback([&](ScenePtr)->bool {
+        showMessage("타노스 등장!");
+        return true; });
     gameMap->setOnEnterCallback([&](ScenePtr s)->bool {
+        sound->play(true);
         if (have5Stone(stones)) {
             tanosGame->enter();
         }
@@ -1558,13 +1566,14 @@ int main()
         return true; });
 
     startScene->setOnEnterCallback([&](ScenePtr s)->bool {
-    xandar->setImage("images/xandar.png"); xandar->show();
-    asgard->setImage("images/asgard.png"); asgard->show();
-    earth->setImage("images/earth.png"); earth->show();
-    nowhere->setImage("images/nowhere.png"); nowhere->show();
-    wakanda->setImage("images/도르마무.png"); wakanda->show();
-    mindS->hide(); realityS->hide(); timeS->hide(); spaceS->hide(); powerS->hide();
-    mindS->drop(); realityS->drop(); timeS->drop(); spaceS->drop(); powerS->drop();
+        sound->play(true); 
+        xandar->setImage("images/xandar.png"); xandar->show();
+        asgard->setImage("images/asgard.png"); asgard->show();
+        earth->setImage("images/earth.png"); earth->show();
+        nowhere->setImage("images/nowhere.png"); nowhere->show();
+        wakanda->setImage("images/도르마무.png"); wakanda->show();
+        mindS->hide(); realityS->hide(); timeS->hide(); spaceS->hide(); powerS->hide();
+        mindS->drop(); realityS->drop(); timeS->drop(); spaceS->drop(); powerS->drop();
         return true; });
     startGame(startScene);
 }
