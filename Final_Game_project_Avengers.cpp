@@ -149,7 +149,6 @@ public:
 
 void xandarGenerater(Queue30Object q[5], bool isGenerate[5][2],const char *filename,ScenePtr scene,int &pC){
     int randomG[5] = {0,0,0,0,0};
-    cout << "xandar G" << endl;
     for (int i = 0; i < 5; i++) {randomG[rand() % 5] = 1;};
     for (int i = 0; i < 5; i++) {
         if (randomG[i] == 1) {
@@ -331,7 +330,6 @@ int main()
                     xandarGameSceneV->enter();
                 }
                 nowX += moveStep[i][0]; nowY += moveStep[i][1];
-                cout << nowX << endl << nowY << endl;
                 if (goRoot[nowY / 120].isStrike(nowX)) {
                     showMessage("적군에 비행기에 부딪혔습니다! GAME OVER");
                     xandarGenerateTimer->stop();
@@ -608,7 +606,6 @@ int main()
         for (int j = 0; j < 4; j++) {
             acientOnePointer[i][j][0] = 300 + j * 200;
             acientOnePointer[i][j][1] =  i * 200;
-            cout << acientOnePointer[i][i][0] << " " << acientOnePointer[i][j][1] << endl;
             acientOneBlock[i][j] = Object::create("images/마법진.png", earthGameScene, acientOnePointer[i][j][0], acientOnePointer[i][j][1]);
             acientOne[i][j] = Object::create("images/에이션트원.png", earthGameScene, acientOnePointer[i][j][0], acientOnePointer[i][j][1], false);
             acientOneBlock[i][j]->setOnMouseCallback([&](ObjectPtr o, int x, int y ,MouseAction)->bool {
@@ -1292,7 +1289,6 @@ int main()
             }
         }
         for (int i = 0; i < 4; i++) {
-            cout << k <<"  " << IX + IDXY[i][0] <<"  "<< IY + IDXY[i][0]<<endl;
             if (k - 82 == i &&(IX+ IDXY[i][0]>=0)&& (IX + IDXY[i][0] <= 1030)&&(IY + IDXY[i][1]>=0) && (IY + IDXY[i][1] <= 300) ){
                 nowIndex = i;
                 IX += IDXY[i][0];
