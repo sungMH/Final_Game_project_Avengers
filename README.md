@@ -2,7 +2,8 @@
 
 ## [어벤져스 엔드게임] 영화의 스토리를 기반으로 만든 게임입니다. 
 
-##  ![image](https://user-images.githubusercontent.com/48859608/101269036-5f240c80-37ad-11eb-801d-d64b4c8e2e68.png)[게임 설명 유튜브 링크]
+##  ![image](https://user-images.githubusercontent.com/48859608/101269036-5f240c80-37ad-11eb-801d-d64b4c8e2e68.png)[게임 설명 유튜브 링크] https://youtu.be/EkU1F6gkjx4
+
 
 ## 
 ## 
