@@ -7,7 +7,7 @@ using namespace bangtal;
 using namespace std;
 
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
-bool stones[6] = {true,true, true, true, true, true};
+bool stones[6] = {false,false, false, false, false, false};
 
 
 bool have5Stone(bool stones[6]) {
