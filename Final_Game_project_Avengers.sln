@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Final_Game_project_Avengers", "Final_Game_project_Avengers.vcxproj", "{25A817B3-49F4-4596-9EFE-005C1A8EB357}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Avengers_Installer", "..\Avengers_Installer\Avengers_Installer.vdproj", "{7625E4DD-C5A5-40C9-BD87-69F2E729F527}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -17,10 +19,14 @@ Global
 		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Debug|x64.Build.0 = Debug|x64
 		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Debug|x86.ActiveCfg = Debug|Win32
 		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Debug|x86.Build.0 = Debug|Win32
-		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Release|x64.ActiveCfg = Release|x64
-		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Release|x64.Build.0 = Release|x64
+		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Release|x64.ActiveCfg = Debug|x64
+		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Release|x64.Build.0 = Debug|x64
 		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Release|x86.ActiveCfg = Release|Win32
 		{25A817B3-49F4-4596-9EFE-005C1A8EB357}.Release|x86.Build.0 = Release|Win32
+		{7625E4DD-C5A5-40C9-BD87-69F2E729F527}.Debug|x64.ActiveCfg = Debug
+		{7625E4DD-C5A5-40C9-BD87-69F2E729F527}.Debug|x86.ActiveCfg = Debug
+		{7625E4DD-C5A5-40C9-BD87-69F2E729F527}.Release|x64.ActiveCfg = Release
+		{7625E4DD-C5A5-40C9-BD87-69F2E729F527}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

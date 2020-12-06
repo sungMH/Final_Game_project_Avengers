@@ -7,7 +7,7 @@ using namespace bangtal;
 using namespace std;
 
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
-bool stones[6] = {false,false, false, false, false, false};
+bool stones[6] = {true,true, true, true, true, true};
 
 
 bool have5Stone(bool stones[6]) {
@@ -220,11 +220,9 @@ int main()
     auto xandarMoveTimer = Timer::create(level1);
     auto moveFireTimer = Timer::create(moveFireTime);
     auto setFireTimer = Timer::create(setFireTime);
-
     auto gun = Object::create("images/총장전.png",xandarGameScene, 700, 600);
     bool gunReady = false;
   
-
     //좌표 정의
     auto my = Object::create("images/스타로드.png", xandarGameScene,0,240);
     int xandarStartPointer[5][2] = { {1280,0},{1280,120},{1280,240},{1280,360},{1280,480} };
@@ -233,8 +231,6 @@ int main()
     bool fireReady = false;
     Queue30Object fireRoot[5];
     for (int i = 0; i < 5; i++) { fireRoot[i] = Queue30Object(); };
-
-
 
     //잔다르 비행기 5개 공격로 설정
     bool isGenerate[5][2] = { {false, false},{false, false},{false, false},{false, false},{false, false} }; //지나갈 길은 만들고 생성하기 위해
@@ -357,7 +353,7 @@ int main()
         for (int i = 0; i < 5; i++) { isGenerate[i][0] = false; isGenerate[i][1] = false; };
         gun->setImage("images/총장전.png");
         gunReady = false;
-        xandarGenerateTimer->set(0);
+        xandarGenerateTimer->set(0.5);
         xandarGenerateTimer->start();
         xandarMoveTimer->start();
         moveFireTimer->start();
@@ -1048,6 +1044,9 @@ int main()
     int meLine;
     ObjectPtr safeZone;
 
+
+    bool modifyBool = false;
+
     auto goHome = Object::create("images/처음으로.png", V2, 1000, 0);
     auto reTry = Object::create("images/다시도전.png", F1, 950, 0);
     goHome->setOnMouseCallback([&](ObjectPtr, int, int, MouseAction)->bool{
@@ -1058,6 +1057,7 @@ int main()
         tanosGame->enter();
         return true; });
     V1->setOnEnterCallback([&](ScenePtr)->bool {
+        modifyBool = false;
         soundT->stop();
         for (int i = 0; i < 6; i++) {
             stones[i] = false;
@@ -1067,28 +1067,32 @@ int main()
         TX = 1000, TY = 0;
         Tanos->locate(tanosGS, TX, TY);
         ironM->locate(tanosGS, IX, IY);
-        QB->show();
-        WB->show();
-        EB->show();
-        RB->show();
-        TB->show();
+        QB->hide();
+        WB->hide();
+        EB->hide();
+        RB->hide();
+        TB->hide();
         TANOS_LIFE = 222;
         IRON_LIFE = 999;
+        laserS = false; skillS = false; TSkill = false; nowTanosTime = false;
+        safeZone->hide();
+
         qb = true, wb = true, eb = true, rb = true, tb = true;
         showMessage("타노스가 가지고 있는 소울 스톤을 가져왔습니다! 건틀렛을 눌러주세요!");
-        TanosWalkTimer->set(TanosWalk); TanosWalkTimer->stop();
-        TanosAttackTimer->set(TanosAttack); TanosAttackTimer->stop();
-        laserTimer->set(laserTime); laserTimer->stop();
-        laserSetTimer->set(laserSet); laserSetTimer->stop();
-        skillTimer1->set(skillTimer); skillTimer1->stop();
-        SKILLTtimer->set(SKILLT); SKILLTtimer->stop();
-        TSkillTimer->set(TSkillTime); TSkillTimer->stop();
-        TSutillTimer->set(TSutill); TSutillTimer->stop();
-        MeteoMT->set(meM); MeteoMT->stop();
-        MeteoGT->set(meG); MeteoGT->stop();
+        TanosWalkTimer->stop(); TanosWalkTimer->set(TanosWalk);
+        TanosAttackTimer->stop(); TanosAttackTimer->set(TanosAttack);
+        laserTimer->stop(); laserTimer->set(laserTime);
+        laserSetTimer->stop(); laserSetTimer->set(laserSet);
+        skillTimer1->stop(); skillTimer1->set(skillTimer);
+        SKILLTtimer->stop(); SKILLTtimer->set(SKILLT);
+        TSkillTimer->stop(); TSkillTimer->set(TSkillTime);
+        TSutillTimer->stop(); TSutillTimer->set(TSutill);
+        MeteoMT->stop(); MeteoMT->set(meM);
+        MeteoGT->stop(); MeteoGT->set(meG);
         return true;
         });
     F1->setOnEnterCallback([&](ScenePtr)->bool {
+        modifyBool = false;
         soundT->stop();
         for (int i = 0; i < 6; i++) {
             stones[i] = false;
@@ -1098,25 +1102,29 @@ int main()
         TX = 1000, TY = 0;
         Tanos->locate(tanosGS, TX, TY);
         ironM->locate(tanosGS, IX, IY);
-        QB->show();
-        WB->show();
-        EB->show();
-        RB->show();
-        TB->show();
+
+        QB->hide();
+        WB->hide();
+        EB->hide();
+        RB->hide();
+        TB->hide();
         TANOS_LIFE = 222;
         IRON_LIFE = 999;
+        laserS = false; skillS = false; TSkill = false; nowTanosTime = false;
+        safeZone->hide();
+
         qb = true, wb = true, eb = true, rb = true, tb = true;
         showMessage("게임패배! 인피니티 스톤들을 빼았겼습니다!");
-        TanosWalkTimer->set(TanosWalk); TanosWalkTimer->stop();
-        TanosAttackTimer->set(TanosAttack); TanosAttackTimer->stop();
-        laserTimer->set(laserTime); laserTimer->stop();
-        laserSetTimer->set(laserSet); laserSetTimer->stop();
-        skillTimer1->set(skillTimer); skillTimer1->stop();
-        SKILLTtimer->set(SKILLT); SKILLTtimer->stop();
-        TSkillTimer->set(TSkillTime); TSkillTimer->stop();
-        TSutillTimer->set(TSutill); TSutillTimer->stop();
-        MeteoMT->set(meM); MeteoMT->stop();
-        MeteoGT->set(meG); MeteoGT->stop();
+        TanosWalkTimer->stop(); TanosWalkTimer->set(TanosWalk); 
+        TanosAttackTimer->stop(); TanosAttackTimer->set(TanosAttack);
+        laserTimer->stop(); laserTimer->set(laserTime);
+        laserSetTimer->stop(); laserSetTimer->set(laserSet);
+        skillTimer1->stop(); skillTimer1->set(skillTimer);
+        SKILLTtimer->stop(); SKILLTtimer->set(SKILLT);
+        TSkillTimer->stop(); TSkillTimer->set(TSkillTime);
+        TSutillTimer->stop(); TSutillTimer->set(TSutill);
+        MeteoMT->stop(); MeteoMT->set(meM);
+        MeteoGT->stop(); MeteoGT->set(meG);
         return true;
         });
 
@@ -1180,7 +1188,7 @@ int main()
                     meteos[i].moveAllYAXIS(320 * i, TanosSkill, -10);
                 }
             }
-            if (!(320* meLine <= IX && IX <= 320 * meLine+320)) {
+            if (!(320* meLine <= IX && IX <= 320 * meLine+320)&& modifyBool) {
                 IRON_LIFE -= 1;
                 int temp100 = IRON_LIFE / 100, temp10 = (IRON_LIFE % 100) / 10, temp1 = IRON_LIFE % 10;
                 string temps100 = "images/" + to_string(temp100) + ".png";
@@ -1199,6 +1207,7 @@ int main()
         return true; });
 
     TSkillTimer->setOnTimerCallback([&](TimerPtr)->bool {
+        modifyBool = true;
         nowTanosTime = true;
         Tanos->setImage("images/타노스메테오.png");
         TanosWalkTimer->stop();
@@ -1219,6 +1228,7 @@ int main()
                 meteos[i].allRevmove();
             }
         }
+        modifyBool = false;
         MeteoGT->set(meG);
         MeteoMT->set(meM);
         MeteoGT->stop();
@@ -1535,10 +1545,9 @@ int main()
         });
 
     tanosGS->setOnEnterCallback([&](ScenePtr)->bool {
-        TANOS_LIFE = 222;
-        IRON_LIFE = 999;
         sound->stop();
         soundT->play(true);
+        TanosWalkTimer->set(1.0f);
         TanosWalkTimer->start();
         TSkillTimer->start();
         laserSetTimer->start();
@@ -1546,10 +1555,13 @@ int main()
         return true; });
 
     tanosGame->setOnEnterCallback([&](ScenePtr)->bool {
+        TANOS_LIFE = 222;
+        IRON_LIFE = 999;
         ILO100->setImage("images/9.png");
         ILO10->setImage("images/9.png");
-        ILO1->setImage("images/9.png");
-
+        ILO1->setImage("images/9.png"); 
+        ironM->setImage("images/아이언맨.png");
+        Tanos->setImage("images/타노스스탠딩.png");
         TNO100->setImage("images/2.png");
         TNO10->setImage("images/2.png");
         TNO1->setImage("images/2.png");
@@ -1564,7 +1576,6 @@ int main()
         if (have5Stone(stones)) {
             tanosGame->enter();
         }
-
         return true; });
 
     startScene->setOnEnterCallback([&](ScenePtr s)->bool {
