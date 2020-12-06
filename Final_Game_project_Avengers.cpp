@@ -9,6 +9,7 @@ using namespace std;
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
 bool stones[6] = {false,false, false, false, false, false};
 
+
 bool have5Stone(bool stones[6]) {
     int nu = 0;
     for (int i = 0; i < 5; i++) { 
@@ -1534,6 +1535,8 @@ int main()
         });
 
     tanosGS->setOnEnterCallback([&](ScenePtr)->bool {
+        TANOS_LIFE = 222;
+        IRON_LIFE = 999;
         sound->stop();
         soundT->play(true);
         TanosWalkTimer->start();
@@ -1543,6 +1546,17 @@ int main()
         return true; });
 
     tanosGame->setOnEnterCallback([&](ScenePtr)->bool {
+        ILO100->setImage("images/9.png");
+        ILO10->setImage("images/9.png");
+        ILO1->setImage("images/9.png");
+
+        TNO100->setImage("images/2.png");
+        TNO10->setImage("images/2.png");
+        TNO1->setImage("images/2.png");
+        IX = 0, IY = 0;
+        TX = 1000, TY = 0;
+        Tanos->locate(tanosGS, TX, TY);
+        ironM->locate(tanosGS, IX, IY);
         showMessage("타노스 등장!");
         return true; });
     gameMap->setOnEnterCallback([&](ScenePtr s)->bool {
