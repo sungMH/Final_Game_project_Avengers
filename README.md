@@ -58,7 +58,7 @@
 ![image](https://user-images.githubusercontent.com/48859608/101268802-f6d42b80-37aa-11eb-9c87-da35b0b69c9f.png)
 ![image](https://user-images.githubusercontent.com/48859608/101268805-fb004900-37aa-11eb-94d2-3efab5889d22.png)
 ![image](https://user-images.githubusercontent.com/48859608/101268808-005d9380-37ab-11eb-996d-83d75927b061.png)
-![image](https://user-images.githubusercontent.com/48859608/101268814-05bade00-37ab-11eb-9180-a34746fb1ef0.png)
+![image](https://user-images.githubusercontent.com/48859608/101279945-5bbe6e80-3809-11eb-8a63-ffa935d964fb.png)
 
 
 #### 게임화면
