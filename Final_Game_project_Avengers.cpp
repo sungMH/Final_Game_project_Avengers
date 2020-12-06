@@ -8,8 +8,6 @@ using namespace std;
 
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
 bool stones[6] = {false,false, false, false, false, false};
-//bool stones[6] = { true,true, true, true, true, true };
-
 
 bool have5Stone(bool stones[6]) {
     int nu = 0;
@@ -18,7 +16,6 @@ bool have5Stone(bool stones[6]) {
             nu++; 
         }
     }
-    cout << nu << endl;
     return nu == 5;
 }
 
@@ -35,8 +32,7 @@ ObjectPtr makeNextButton(ScenePtr &nowScene, ScenePtr &nextScene, int x ,int y, 
         nextButton = Object::create(inputFilename, nowScene, x, y);
     }
     nextButton->setOnMouseCallback([&](ObjectPtr o,int,int,MouseAction)->bool {
-
-            nextScene->enter();
+        nextScene->enter();
     return true;
     });
     return nextButton;
@@ -986,7 +982,7 @@ int main()
     int TANOS_LIFE = 222;
     int IRON_LIFE = 999;
 
-    Sound soundT = Sound::create("images/타노스.mp3");
+    SoundPtr soundT = Sound::create("images/타노스.mp3");
     auto nextTX4 = makeNextButton(tanosM3, tanosM4, 1000, 10);
     auto prevTX4 = makeNextButton(tanosM3, tanosM2, 900, 10, false);
     auto nextTX5 = makeNextButton(tanosM4, tanosM5, 1000, 10);
@@ -1547,6 +1543,7 @@ int main()
         });
 
     tanosGS->setOnEnterCallback([&](ScenePtr)->bool {
+        sound->stop();
         soundT->play(true);
         TanosWalkTimer->start();
         TSkillTimer->start();
