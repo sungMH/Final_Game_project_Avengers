@@ -721,7 +721,6 @@ int main()
     auto prevBN1 = makeNextButton(nowhereMenual1, gameMap, 900, 10, false);
 
     //게임 구현
-    
     auto realityS = Object::create("images/리얼리티스톤.png", gameMap, 730, 420, false);
     realityS->setOnMouseCallback([&](ObjectPtr o, int, int, MouseAction)->bool {
         o->pick();
