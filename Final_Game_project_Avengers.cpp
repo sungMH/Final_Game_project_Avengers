@@ -167,11 +167,11 @@ int main()
 
     srand((unsigned)time(NULL));
 
-    auto startS1 = Scene::create("게임설명1", "images/gameManual1.png");//여기 화면 만들어야 함
+    auto startS1 = Scene::create("게임설명1", "images/게임설명1.png");//여기 화면 만들어야 함
     auto nextbuttonS1 = makeNextButton(startScene, startS1, 1000, 50);//위치 조절
     auto prevbuttonS1 = makeNextButton(startS1, startScene, 900, 50,false);//위치 조절
 
-    auto startS2 = Scene::create("게임설명2", "images/gameManual2.png");//여기 화면 만들어야 함
+    auto startS2 = Scene::create("게임설명2", "images/게임설명2.png");//여기 화면 만들어야 함
     auto nextbuttonS2 = makeNextButton(startS1, startS2, 1000, 50);
     auto prevbuttonS2 = makeNextButton(startS2, startS1, 900, 50, false);
 
