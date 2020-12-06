@@ -7,7 +7,7 @@ using namespace bangtal;
 using namespace std;
 
 //파워스톤, 스페이스,타임,리얼리티,마인드, 소울
-bool stones[6] = {false,false, false, false, false, false};
+bool stones[6] = {false,false, false, false, false, false };
 
 
 bool have5Stone(bool stones[6]) {
@@ -1055,6 +1055,7 @@ int main()
     reTry->setOnMouseCallback([&](ObjectPtr, int, int, MouseAction)->bool {
         tanosGame->enter();
         return true; });
+
     V1->setOnEnterCallback([&](ScenePtr)->bool {
         modifyBool = false;
         soundT->stop();
@@ -1071,8 +1072,6 @@ int main()
         EB->hide();
         RB->hide();
         TB->hide();
-        TANOS_LIFE = 222;
-        IRON_LIFE = 999;
         laserS = false; skillS = false; TSkill = false; nowTanosTime = false;
         safeZone->hide();
 
@@ -1091,6 +1090,8 @@ int main()
         return true;
         });
     F1->setOnEnterCallback([&](ScenePtr)->bool {
+        TANOS_LIFE = 222;
+        IRON_LIFE = 999;
         modifyBool = false;
         soundT->stop();
         for (int i = 0; i < 6; i++) {
@@ -1107,8 +1108,6 @@ int main()
         EB->hide();
         RB->hide();
         TB->hide();
-        TANOS_LIFE = 222;
-        IRON_LIFE = 999;
         laserS = false; skillS = false; TSkill = false; nowTanosTime = false;
         safeZone->hide();
 
