@@ -192,11 +192,6 @@ int main()
     auto nextbuttonM2 = makeNextButton(startS2, gameMap,1000, 50);
     auto prevbuttonM2 = makeNextButton(gameMap, startS2, 900, 50, false);
 
-
-    
-
-    //게임 맵에 행성들 추가
-
     //################1.잔다르 행성
 
     //게임메뉴얼
