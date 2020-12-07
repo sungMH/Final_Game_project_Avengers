@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Final_Game_project_Avengers", "Final_Game_project_Avengers.vcxproj", "{25A817B3-49F4-4596-9EFE-005C1A8EB357}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AvengersGame_Installer", "AvengersGame_Installer\AvengersGame_Installer.vdproj", "{CDBFFACA-39CF-4F31-8E83-501C445723AE}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AvengersGame_Installer", "..\AvengersGame_Installer\AvengersGame_Installer.vdproj", "{CDBFFACA-39CF-4F31-8E83-501C445723AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
